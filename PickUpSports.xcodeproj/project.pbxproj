@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		411162573F5EC7F29C7B6C94 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027716590064861A145B4E05 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A11676721B4DC0B2009DA904 /* SportHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11676711B4DC0B2009DA904 /* SportHeaderCell.swift */; };
+		A11676761B4DC1E8009DA904 /* GlobalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11676751B4DC1E8009DA904 /* GlobalStorage.swift */; };
+		A11676781B4DCBD5009DA904 /* SportsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11676771B4DCBD5009DA904 /* SportsTableViewController.swift */; };
+		A116767A1B4DD4DF009DA904 /* CityHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11676791B4DD4DF009DA904 /* CityHeaderCell.swift */; };
 		A1409DDB1B4B2B98008F6DB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */; };
 		A1409DDD1B4B2B98008F6DB8 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDC1B4B2B98008F6DB8 /* FirstViewController.swift */; };
 		A1409DDF1B4B2B98008F6DB8 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDE1B4B2B98008F6DB8 /* SecondViewController.swift */; };
@@ -14,6 +19,16 @@
 		A1409DE41B4B2B98008F6DB8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1409DE31B4B2B98008F6DB8 /* Images.xcassets */; };
 		A1409DE71B4B2B98008F6DB8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1409DE51B4B2B98008F6DB8 /* LaunchScreen.xib */; };
 		A1409DF31B4B2B98008F6DB8 /* PickUpSportsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DF21B4B2B98008F6DB8 /* PickUpSportsTests.swift */; };
+		A18FE4F51B4B859900F64169 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE4F41B4B859900F64169 /* CardView.swift */; };
+		A18FE4F71B4C1CFF00F64169 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A18FE4F61B4C1CFF00F64169 /* Podfile */; };
+		A18FE4FF1B4C3F3400F64169 /* SportTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE4FE1B4C3F3400F64169 /* SportTableCell.swift */; };
+		A18FE5061B4C70CF00F64169 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5021B4C70CF00F64169 /* Button.swift */; };
+		A18FE5071B4C70CF00F64169 /* InputText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5031B4C70CF00F64169 /* InputText.swift */; };
+		A18FE5081B4C70CF00F64169 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5041B4C70CF00F64169 /* Modal.swift */; };
+		A18FE5091B4C70CF00F64169 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5051B4C70CF00F64169 /* UIColor.swift */; };
+		A18FE50F1B4CC21300F64169 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE50E1B4CC21300F64169 /* City.swift */; };
+		A18FE5131B4CC51A00F64169 /* CityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5121B4CC51A00F64169 /* CityVC.swift */; };
+		A18FE5151B4CE2E800F64169 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5141B4CE2E800F64169 /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		027716590064861A145B4E05 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A11676711B4DC0B2009DA904 /* SportHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportHeaderCell.swift; sourceTree = "<group>"; };
+		A11676751B4DC1E8009DA904 /* GlobalStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalStorage.swift; sourceTree = "<group>"; };
+		A11676771B4DCBD5009DA904 /* SportsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsTableViewController.swift; sourceTree = "<group>"; };
+		A11676791B4DD4DF009DA904 /* CityHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityHeaderCell.swift; sourceTree = "<group>"; };
 		A1409DD51B4B2B98008F6DB8 /* PickUpSports.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickUpSports.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1409DD91B4B2B98008F6DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +58,18 @@
 		A1409DEC1B4B2B98008F6DB8 /* PickUpSportsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickUpSportsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1409DF11B4B2B98008F6DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1409DF21B4B2B98008F6DB8 /* PickUpSportsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpSportsTests.swift; sourceTree = "<group>"; };
+		A18FE4F41B4B859900F64169 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		A18FE4F61B4C1CFF00F64169 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		A18FE4FE1B4C3F3400F64169 /* SportTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportTableCell.swift; sourceTree = "<group>"; };
+		A18FE5021B4C70CF00F64169 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		A18FE5031B4C70CF00F64169 /* InputText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputText.swift; sourceTree = "<group>"; };
+		A18FE5041B4C70CF00F64169 /* Modal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
+		A18FE5051B4C70CF00F64169 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		A18FE50E1B4CC21300F64169 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		A18FE5121B4CC51A00F64169 /* CityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityVC.swift; sourceTree = "<group>"; };
+		A18FE5141B4CE2E800F64169 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		CF5871BC5489C0E1F1195D0B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E07AA5FC27267C5AAA2DB2D8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				411162573F5EC7F29C7B6C94 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +91,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3466D0643D4D4B4BCF169BC5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E07AA5FC27267C5AAA2DB2D8 /* Pods.debug.xcconfig */,
+				CF5871BC5489C0E1F1195D0B /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9F64B78CA18E52662D7E1ED3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				027716590064861A145B4E05 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A11676731B4DC0BF009DA904 /* SportSelect */ = {
+			isa = PBXGroup;
+			children = (
+				A18FE4FE1B4C3F3400F64169 /* SportTableCell.swift */,
+				A11676711B4DC0B2009DA904 /* SportHeaderCell.swift */,
+				A11676771B4DCBD5009DA904 /* SportsTableViewController.swift */,
+			);
+			name = SportSelect;
+			sourceTree = "<group>";
+		};
+		A11676741B4DC0CE009DA904 /* CitySelect */ = {
+			isa = PBXGroup;
+			children = (
+				A18FE5121B4CC51A00F64169 /* CityVC.swift */,
+				A11676791B4DD4DF009DA904 /* CityHeaderCell.swift */,
+				A18FE4F41B4B859900F64169 /* CardView.swift */,
+			);
+			name = CitySelect;
+			sourceTree = "<group>";
+		};
 		A1409DCC1B4B2B98008F6DB8 = {
 			isa = PBXGroup;
 			children = (
+				A18FE4F61B4C1CFF00F64169 /* Podfile */,
 				A1409DD71B4B2B98008F6DB8 /* PickUpSports */,
 				A1409DEF1B4B2B98008F6DB8 /* PickUpSportsTests */,
 				A1409DD61B4B2B98008F6DB8 /* Products */,
+				3466D0643D4D4B4BCF169BC5 /* Pods */,
+				9F64B78CA18E52662D7E1ED3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +152,8 @@
 		A1409DD71B4B2B98008F6DB8 /* PickUpSports */ = {
 			isa = PBXGroup;
 			children = (
+				A18FE50B1B4CC0E200F64169 /* Libraries */,
+				A18FE50A1B4CC0B500F64169 /* CocoaClasses */,
 				A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */,
 				A1409DDC1B4B2B98008F6DB8 /* FirstViewController.swift */,
 				A1409DDE1B4B2B98008F6DB8 /* SecondViewController.swift */,
@@ -86,6 +161,9 @@
 				A1409DE31B4B2B98008F6DB8 /* Images.xcassets */,
 				A1409DE51B4B2B98008F6DB8 /* LaunchScreen.xib */,
 				A1409DD81B4B2B98008F6DB8 /* Supporting Files */,
+				A18FE50E1B4CC21300F64169 /* City.swift */,
+				A18FE5141B4CE2E800F64169 /* Util.swift */,
+				A11676751B4DC1E8009DA904 /* GlobalStorage.swift */,
 			);
 			path = PickUpSports;
 			sourceTree = "<group>";
@@ -115,6 +193,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A18FE50A1B4CC0B500F64169 /* CocoaClasses */ = {
+			isa = PBXGroup;
+			children = (
+				A11676741B4DC0CE009DA904 /* CitySelect */,
+				A11676731B4DC0BF009DA904 /* SportSelect */,
+			);
+			name = CocoaClasses;
+			sourceTree = "<group>";
+		};
+		A18FE50B1B4CC0E200F64169 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				A18FE5021B4C70CF00F64169 /* Button.swift */,
+				A18FE5031B4C70CF00F64169 /* InputText.swift */,
+				A18FE5041B4C70CF00F64169 /* Modal.swift */,
+				A18FE5051B4C70CF00F64169 /* UIColor.swift */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1409DF61B4B2B98008F6DB8 /* Build configuration list for PBXNativeTarget "PickUpSports" */;
 			buildPhases = (
+				3D6D3742AC9C7294E31F09D6 /* Check Pods Manifest.lock */,
 				A1409DD11B4B2B98008F6DB8 /* Sources */,
 				A1409DD21B4B2B98008F6DB8 /* Frameworks */,
 				A1409DD31B4B2B98008F6DB8 /* Resources */,
+				990634C8F312EA5E13E3F957 /* Embed Pods Frameworks */,
+				B1D650B4E652361177A4D56F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,6 +298,7 @@
 			files = (
 				A1409DE21B4B2B98008F6DB8 /* Main.storyboard in Resources */,
 				A1409DE71B4B2B98008F6DB8 /* LaunchScreen.xib in Resources */,
+				A18FE4F71B4C1CFF00F64169 /* Podfile in Resources */,
 				A1409DE41B4B2B98008F6DB8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,14 +312,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D6D3742AC9C7294E31F09D6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		990634C8F312EA5E13E3F957 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1D650B4E652361177A4D56F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A1409DD11B4B2B98008F6DB8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11676761B4DC1E8009DA904 /* GlobalStorage.swift in Sources */,
+				A116767A1B4DD4DF009DA904 /* CityHeaderCell.swift in Sources */,
+				A18FE5061B4C70CF00F64169 /* Button.swift in Sources */,
 				A1409DDF1B4B2B98008F6DB8 /* SecondViewController.swift in Sources */,
+				A18FE50F1B4CC21300F64169 /* City.swift in Sources */,
+				A11676781B4DCBD5009DA904 /* SportsTableViewController.swift in Sources */,
 				A1409DDB1B4B2B98008F6DB8 /* AppDelegate.swift in Sources */,
+				A18FE4F51B4B859900F64169 /* CardView.swift in Sources */,
+				A11676721B4DC0B2009DA904 /* SportHeaderCell.swift in Sources */,
+				A18FE4FF1B4C3F3400F64169 /* SportTableCell.swift in Sources */,
 				A1409DDD1B4B2B98008F6DB8 /* FirstViewController.swift in Sources */,
+				A18FE5081B4C70CF00F64169 /* Modal.swift in Sources */,
+				A18FE5131B4CC51A00F64169 /* CityVC.swift in Sources */,
+				A18FE5151B4CE2E800F64169 /* Util.swift in Sources */,
+				A18FE5071B4C70CF00F64169 /* InputText.swift in Sources */,
+				A18FE5091B4C70CF00F64169 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +507,7 @@
 		};
 		A1409DF71B4B2B98008F6DB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E07AA5FC27267C5AAA2DB2D8 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PickUpSports/Info.plist;
@@ -354,6 +518,7 @@
 		};
 		A1409DF81B4B2B98008F6DB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF5871BC5489C0E1F1195D0B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PickUpSports/Info.plist;
@@ -415,6 +580,7 @@
 				A1409DF81B4B2B98008F6DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A1409DF91B4B2B98008F6DB8 /* Build configuration list for PBXNativeTarget "PickUpSportsTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +589,7 @@
 				A1409DFB1B4B2B98008F6DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
