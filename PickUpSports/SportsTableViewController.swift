@@ -9,34 +9,34 @@
 import UIKit
 import MaterialKit
 import FontAwesome_swift
+import Alamofire
+import SwiftyJSON
 
 class SportsTableViewController: UITableViewController {
     
     @IBOutlet weak var infoBtn: UINavigationItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    @IBAction func infoButtonTapped(sender: AnyObject) {
-        let joiner = ", "
-        var body = " Select all the sports you play. \n You will get notifications for any pick up games in your current city for all sports you select here. \n These sports can be added or removed from the settings tab at any time."
-        var settings = Modal.Settings()
-        settings.backgroundColor = .whiteColor()
-        settings.shadowType = .Curl
-        settings.shadowRadius = CGFloat(5)
-        settings.shadowOffset = CGSize(width: 0, height: -3)
-        settings.overlayBlurStyle = .Dark
-        
-        Modal(title: "You're Almost Ready to Go!", body: body, status: .Warning, settings: settings).show()
-    }
-    
     var selectedSports = [String]()
     var joiner = " ~ "
     var errorColor: UIColor!
-    let sportsNames = ["Basketball", "Football", "Soccer", "Hockey", "Softball/Baseball", "Golf", "Hockey", "Hockey", "Hockey", "Hockey", "Hockey", "Hockey"]
+    var sportsNames = [String]()
     let colors = [UIColor.MKColor.DeepOrange, UIColor.MKColor.Cyan, UIColor.MKColor.Amber, UIColor.MKColor.BlueGrey, UIColor.MKColor.Lime, UIColor.MKColor.Blue, UIColor.MKColor.Indigo]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        saveButton.enabled = false
+        Alamofire.request(.GET, GlobalStorage.url+"/sports\(GlobalStorage.currentAuth)").responseJSON{
+            (req, resp, json, error) in
+            let resp: JSON? = JSON(json!)
+            if let response = resp{
+                for(key, sport) in response["sports"]{
+                    self.sportsNames.append(sport["name"].string!.capitalizedString)
+                }
+                GlobalStorage.sports = self.sportsNames
+            }
+            self.tableView.reloadData()
+        }
+    //    saveButton.enabled = false
         tableView.backgroundColor = UIColor.MKColor.Grey
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.backgroundView = UIImageView(image: UIImage(named: "sports"))
@@ -110,7 +110,7 @@ class SportsTableViewController: UITableViewController {
             saveButton.enabled = true
         }
         else{
-            saveButton.enabled = false
+        //    saveButton.enabled = false
             GlobalStorage.sportHeaderCell.headerLabel.text = "No sports selected..."
             GlobalStorage.sportHeaderCell.headerSubview.backgroundColor = errorColor
         }

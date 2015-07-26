@@ -42,7 +42,7 @@ class SportTableCell: MKTableViewCell {
         cell.plus.alpha = 1.0
         
         cell.cellLabel.textColor = UIColor.whiteColor()
-        cell.cellLabel.text = text
+        cell.cellLabel.text = text.capitalizedString
         cell.cellLabel.alpha = 1.0
         
         cell.subview.alpha = 0.8

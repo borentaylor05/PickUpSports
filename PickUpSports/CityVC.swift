@@ -8,6 +8,8 @@
 
 import UIKit
 import FontAwesome_swift
+import Alamofire
+import SwiftyJSON
 
 class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating{
     
@@ -17,46 +19,41 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
     var resultSearchController = UISearchController()
     
     var filterCities = [City]()
-    var cities = [
-        City(name:"Parker", state:"CO"),
-        City(name:"Lone Tree", state:"CO"),
-        City(name:"Centennial", state:"CO"),
-        City(name:"Aurora", state:"CO"),
-        City(name:"Denver", state:"CO"),
-        City(name:"Castle Rock", state:"CO"),
-        City(name:"Englewood", state:"CO"),
-        City(name:"Highlands Ranch", state:"CO")
-    ]
-    
+    var cities = [City]()
+    var citiesFollowing = [City]()
     var cityStrings = [String]()
     var filteredCityStrings = [String]()
     var joiner = " ~ "
-    var citiesFollowing = [City]()
     var cityNames = [String]()
     var cityHeaderTapRecognizer: UIGestureRecognizer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextButton.enabled = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = UIColor.MKColor.Grey
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.backgroundView = UIImageView(image: UIImage(named: "sports"))
-        self.resultSearchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.hidesNavigationBarDuringPresentation = false
-            controller.dimsBackgroundDuringPresentation = false
-            controller.searchBar.sizeToFit()
-            self.tableView.tableHeaderView = controller.searchBar
-            return controller
-        })()
-        for city in cities{
-            cityStrings.append(city.name+", "+city.state)
+    //    nextButton.enabled = false
+        tableView = Util.initTableView(self, tableView: tableView)
+        Alamofire.request(.GET, GlobalStorage.url+"/cities\(GlobalStorage.currentAuth)").responseJSON{
+            (req, resp, json, error) in
+            let resp: JSON? = JSON(json!)
+            if let response = resp{
+                for(key, q) in response["cities"]{
+                    self.cities.append(City(name: q["name"].string!, state: q["state"].string!))
+                }
+            }
+            self.resultSearchController = ({
+                let controller = UISearchController(searchResultsController: nil)
+                controller.searchResultsUpdater = self
+                controller.hidesNavigationBarDuringPresentation = false
+                controller.dimsBackgroundDuringPresentation = false
+                controller.searchBar.sizeToFit()
+                self.tableView.tableHeaderView = controller.searchBar
+                return controller
+            })()
+            for city in self.cities{
+           self.cityStrings.append(city.name+", "+city.state)
+            }
+            self.filteredCityStrings = self.cityStrings
+            self.tableView.reloadData()
         }
-        filteredCityStrings = cityStrings
-        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +79,6 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableCellWithIdentifier("city_header_cell") as! CityHeaderCell
-        GlobalStorage.errorColor = headerCell.chSubview.backgroundColor
         GlobalStorage.cityHeaderCell = headerCell
         GlobalStorage.cityHeaderCell.chLabel.numberOfLines = 0
         cityHeaderTapRecognizer = UITapGestureRecognizer(target: GlobalStorage.cityHeaderCell, action: Selector("headerTapped"))
@@ -91,9 +87,6 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
         return GlobalStorage.cityHeaderCell
     }
     
-    func headerTapped(){
-        println("KNOCK")
-    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! SportTableCell
@@ -125,7 +118,7 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
             GlobalStorage.cityHeaderCell.chLabel.text = joiner.join(self.cityNames)
         }
         else{
-            nextButton.enabled = false
+        //    nextButton.enabled = false
             GlobalStorage.cityHeaderCell.chSubview.backgroundColor = GlobalStorage.errorColor
             GlobalStorage.cityHeaderCell.chLabel.text = "No cities selected..."
         }
