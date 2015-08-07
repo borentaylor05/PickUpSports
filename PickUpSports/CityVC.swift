@@ -16,11 +16,12 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     
+    var editingCities = false
     var resultSearchController = UISearchController()
-    
     var filterCities = [City]()
     var cities = [City]()
     var citiesFollowing = [City]()
+    var citiesFollowingStrings = [String]()
     var cityStrings = [String]()
     var filteredCityStrings = [String]()
     var joiner = " ~ "
@@ -29,15 +30,18 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    //    nextButton.enabled = false
+        // stores user in GlobalStorage.currentUser
+        if !self.editingCities{
+            Util.saveCurrentUserNoCitySports()
+        }
+        else{
+            nextButton.title = "Save"
+        }
+        nextButton.enabled = false
         tableView = Util.initTableView(self, tableView: tableView)
-        Alamofire.request(.GET, GlobalStorage.url+"/cities\(GlobalStorage.currentAuth)").responseJSON{
-            (req, resp, json, error) in
-            let resp: JSON? = JSON(json!)
-            if let response = resp{
-                for(key, q) in response["cities"]{
-                    self.cities.append(City(name: q["name"].string!, state: q["state"].string!))
-                }
+        City.getAll(){ (response) in
+            for(key, q) in response["cities"]{
+                self.cities.append(City(name: q["name"].string!.capitalizedString, state: q["state"].string!.uppercaseString))
             }
             self.resultSearchController = ({
                 let controller = UISearchController(searchResultsController: nil)
@@ -49,10 +53,22 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
                 return controller
             })()
             for city in self.cities{
-           self.cityStrings.append(city.name+", "+city.state)
+                self.cityStrings.append(city.name+", "+city.state)
             }
             self.filteredCityStrings = self.cityStrings
             self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func nextButtonTapped(sender: AnyObject) {
+        GlobalStorage.currentUser.addCities(self.citiesFollowingStrings){ (response) in
+            // empty callback - nothing to do
+        }
+        if self.editingCities{
+            performSegueWithIdentifier("to_settings", sender: self)
+        }
+        else{
+            performSegueWithIdentifier("to_sports", sender: self)
         }
     }
 
@@ -84,6 +100,10 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
         cityHeaderTapRecognizer = UITapGestureRecognizer(target: GlobalStorage.cityHeaderCell, action: Selector("headerTapped"))
         cityHeaderTapRecognizer.delegate = GlobalStorage.cityHeaderCell
         GlobalStorage.cityHeaderCell.addGestureRecognizer(cityHeaderTapRecognizer)
+        if self.editingCities{
+            GlobalStorage.cityHeaderCell.chSubview.backgroundColor = GlobalStorage.successColor
+            GlobalStorage.cityHeaderCell.chLabel.text = "No new cities selected..."
+        }
         return GlobalStorage.cityHeaderCell
     }
     
@@ -95,19 +115,17 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
             if !contains(cityNames, parts[0].trim()){
                 let city = City(name: parts[0].trim(), state: parts[1].trim())
                 citiesFollowing.append(city)
+                citiesFollowingStrings.append(parts[0]+","+parts[1])
                 cityNames.append(parts[0].trim())
-                cell.rippleLayerColor = UIColor.greenColor()
-                cell.cityPlus.textColor = UIColor.greenColor()
-                cell.cityPlus.text = String.fontAwesomeIconWithName(FontAwesome.Check)
+                cell.formatCell(parts[0]+","+parts[1], status: .Selected)
             }
             else{
                 for (index, city) in enumerate(citiesFollowing){
-                    if city.name == parts[0].trim(){
+                    if city.name.lowercaseString == parts[0].lowercaseString.trim(){
                         citiesFollowing.removeAtIndex(index)
+                        citiesFollowingStrings.removeAtIndex(index)
                         cityNames.removeAtIndex(index)
-                        cell.rippleLayerColor = UIColor.whiteColor()
-                        cell.cityPlus.textColor = UIColor.whiteColor()
-                        cell.cityPlus.text = String.fontAwesomeIconWithName(FontAwesome.Plus)
+                        cell.formatCell(parts[0]+","+parts[1], status: .NotSelected)
                     }
                 }
             }
@@ -118,7 +136,7 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
             GlobalStorage.cityHeaderCell.chLabel.text = joiner.join(self.cityNames)
         }
         else{
-        //    nextButton.enabled = false
+            nextButton.enabled = false
             GlobalStorage.cityHeaderCell.chSubview.backgroundColor = GlobalStorage.errorColor
             GlobalStorage.cityHeaderCell.chLabel.text = "No cities selected..."
         }
@@ -127,25 +145,42 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("city_cell", forIndexPath: indexPath) as! SportTableCell
         if self.resultSearchController.active{
-            cell.formatCity(cell, text: filteredCityStrings[indexPath.row])
+            cell.formatCell(filteredCityStrings[indexPath.row], status: .NotSelected)
         }
         else{
             if GlobalStorage.cityHeaderCell != nil{
                 GlobalStorage.cityHeaderCell.hidden = false
             }
-            cell.formatCity(cell, text: cityStrings[indexPath.row])
+            cell.formatCell(cityStrings[indexPath.row], status: .NotSelected)
         }
         var parts = cell.cityLabel.text!.componentsSeparatedByString(",")
         if parts.count > 0{
-            for city in citiesFollowing{
-                if city.name == parts[0].trim(){
-                    cell.cityPlus.textColor = UIColor.greenColor()
-                    cell.cityPlus.text = String.fontAwesomeIconWithName(FontAwesome.Check)
-                    break
+            if self.editingCities{
+                GlobalStorage.cityHeaderCell.chLabel.text = "No new cities selected"
+                println(GlobalStorage.currentUser.cities)
+                if let myCities = GlobalStorage.currentUser.cities{
+                    for city in myCities{
+                        var cityParts = city.componentsSeparatedByString(",")
+                        if cityParts[0].lowercaseString.trim() == parts[0].lowercaseString.trim(){
+                            cell.formatCell(city, status: .Selected)
+                            citiesFollowingStrings.append(city)
+                            citiesFollowing.append(City(name: parts[0], state: parts[1]))
+                            cityNames.append(cityParts[0].capitalizedString)
+                            nextButton.enabled = true
+                            break
+                        }
+                    }
+                }
+            }
+            else{
+                for city in citiesFollowing{
+                    if city.name == parts[0].trim(){
+                        cell.status = .Selected
+                        break
+                    }
                 }
             }
         }
-        
         return cell
     }
     
@@ -161,16 +196,5 @@ class CityVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISe
         filteredCityStrings = array as! [String]
         self.tableView.reloadData()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

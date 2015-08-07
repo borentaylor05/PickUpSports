@@ -83,13 +83,20 @@ class CreateAccountVC: UIViewController, UITextFieldDelegate {
         }
     }
     @IBAction func createButtonTapped(sender: AnyObject) {
+        var spinner = self.view.addSpinner()
+        spinner.color = UIColor.whiteColor()
         Alamofire.request(.POST, GlobalStorage.url+"/users", parameters: credentials, encoding: .JSON).responseJSON{
             (req, resp, json, err) in
             let resp: JSON? = JSON(json!)
             if let response = resp{
                 println(response)
                 if response["status"] == 200{
-                    
+                    let defaults = NSUserDefaults()
+                    defaults.setObject(response["user"]["email"].string!, forKey: "email")
+                    defaults.setObject(response["user"]["username"].string!, forKey: "username")
+                    defaults.setObject(response["user"]["id"].int!, forKey: "user_id")
+                    defaults.setObject(response["user"]["authentication_token"].string!, forKey: "token")
+                    self.performSegueWithIdentifier("create_success", sender: self)
                 }
                 else{
                     self.errorLabel.text = ""
@@ -99,6 +106,7 @@ class CreateAccountVC: UIViewController, UITextFieldDelegate {
                     }
                     self.errorLabel.hidden = false
                 }
+                spinner.remove()
             }
         }
     }

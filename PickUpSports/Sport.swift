@@ -8,10 +8,16 @@
 
 import Foundation
 
-class Sport {
+class Sport: UserSettings {
     var name: String!
     var players: Int?
     init(name:String){
         self.name = name
+    }
+    
+    static func getAll(callback:ApiResponse){
+        HTTP.get("/sports"){ (response) in
+            callback(response)
+        }
     }
 }

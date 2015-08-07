@@ -16,7 +16,12 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     var recognizer:UIGestureRecognizer!
     var newGame = [String:String]()
     var saveButton: UIBarButtonItem!
+    var sportCities = "sports"
+    var mySports: [String]!
+    var myCities: [String]!
+    let defaults = NSUserDefaults()
 
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var sportLabelIcon: UILabel!
     @IBOutlet weak var sportSelector: UIPickerView!
     @IBOutlet weak var sportButton: MKButton!
@@ -27,7 +32,53 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     @IBOutlet weak var locationIcon: UILabel!
     @IBOutlet weak var timeIcon: UILabel!
     @IBOutlet weak var timeButton: MKButton!
+    @IBOutlet weak var cityButton: MKButton!
+    @IBOutlet weak var cityIconLabel: MKLabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        println(self.navigationController!.navigationItem.title)
+        if self.navigationItem.title == "new"{
+            self.navigationController?.navigationBarHidden = true
+        }
+        mySports = defaults.arrayForKey("sports") as! [String]
+        myCities = defaults.arrayForKey("cities") as! [String]
+        newGame["timeZone"] = GlobalStorage.timeZone
+        saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "createGame")
+        self.navigationItem.rightBarButtonItem = saveButton
+        saveButton.enabled = false
+        recognizer = UITapGestureRecognizer(target: self, action: "hidePickerAndKeyboard")
+        sportSelector.delegate = self
+        sportSelector.dataSource = self
+        titleInput.delegate = self
+        locationInput.delegate = self
+        sportSelector.hidden = true
+        datePicker.hidden = true
+        titleInput.addTarget(self, action:"placeholder", forControlEvents:.EditingDidEndOnExit)
+        locationInput.addTarget(self, action:"placeholder", forControlEvents:.EditingDidEndOnExit)
+        datePicker.setValue(UIColor.whiteColor(), forKeyPath: "textColor")
+        datePicker.addTarget(self, action: Selector("datePickerChanged"), forControlEvents: UIControlEvents.ValueChanged)
+        self.navigationItem.title = "Create New Game"
+        sportLabelIcon.makeIconLabel(FontAwesome.Trophy)
+        titleIcon.makeIconLabel(FontAwesome.StarO)
+        locationIcon.makeIconLabel(FontAwesome.MapMarker)
+        timeIcon.makeIconLabel(FontAwesome.ClockO)
+        cityIconLabel.makeIconLabel(FontAwesome.Building)
+    }
+    @IBAction func cityButtonTapped(sender: AnyObject) {
+        sportCities = "cities"
+        checkGameIsValid(newGame)
+        locationInput.resignFirstResponder()
+        titleInput.resignFirstResponder()
+        sportSelector.selectRow(0, inComponent: 0, animated: true)
+        sportSelector.hidden = false
+        datePicker.hidden = true
+        sportSelector.selectRow(0, inComponent: 0, animated: true)
+        sportSelector.reloadAllComponents()
+        cityButton.setTitle(myCities[0].capitalizedString, forState: UIControlState.Normal)
+        newGame["city"] = myCities[0]
+        checkGameIsValid(newGame)
+    }
     @IBAction func timeButtonTapped(sender: AnyObject) {
         datePicker.hidden = false
         sportSelector.hidden = true
@@ -46,34 +97,18 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
         view.addGestureRecognizer(recognizer)
     }
     @IBAction func sportSelectButton(sender: AnyObject) {
+        titleView.frame = CGRectMake(titleView.frame.origin.x, 400, titleView.frame.size.width, titleView.frame.size.height)
+        sportSelector.selectRow(0, inComponent: 0, animated: true)
         sportSelector.hidden = false
+        sportCities = "sports"
+        sportSelector.reloadAllComponents()
         datePicker.hidden = true
-        sportButton.setTitle(GlobalStorage.sports[0].capitalizedString, forState: UIControlState.Normal)
+        sportButton.setTitle(mySports[0].capitalizedString, forState: UIControlState.Normal)
+        newGame["sport"] = mySports[0]
+        checkGameIsValid(newGame)
         locationInput.resignFirstResponder()
         titleInput.resignFirstResponder()
         view.addGestureRecognizer(recognizer)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        newGame["timeZone"] = GlobalStorage.timeZone
-        saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "createGame")
-        self.navigationItem.rightBarButtonItem = saveButton
-        saveButton.enabled = false
-        recognizer = UITapGestureRecognizer(target: self, action: "hidePickerAndKeyboard")
-        sportSelector.delegate = self
-        sportSelector.dataSource = self
-        titleInput.delegate = self
-        locationInput.delegate = self
-        sportSelector.hidden = true
-        datePicker.hidden = true
-        datePicker.setValue(UIColor.whiteColor(), forKeyPath: "textColor")
-        datePicker.addTarget(self, action: Selector("datePickerChanged"), forControlEvents: UIControlEvents.ValueChanged)
-        self.navigationItem.title = "Create New Game"
-        sportLabelIcon.makeIconLabel(FontAwesome.SpaceShuttle)
-        titleIcon.makeIconLabel(FontAwesome.StarO)
-        locationIcon.makeIconLabel(FontAwesome.MapMarker)
-        timeIcon.makeIconLabel(FontAwesome.ClockO)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destination = segue.destinationViewController as! FirstViewController
@@ -83,19 +118,43 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
         return 1
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return GlobalStorage.sports.count
+        if sportCities == "sports"{
+            return mySports.count
+        }
+        else{
+            return myCities.count
+        }
     }
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return GlobalStorage.sports[row].uppercaseString
+        if sportCities == "sports"{
+            return mySports[row].capitalizedString
+        }
+        else{
+            var parts = split(myCities[row]) {$0 == ","}
+            return parts[0].capitalizedString+", "+parts[1].uppercaseString
+        }
     }
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let titleData = GlobalStorage.sports[row]
+        let array = sportCities == "sports" ? mySports : myCities
+        var titleData = array[row]
+        if sportCities == "sports"{
+            titleData = titleData.capitalizedString
+        }
+        else{
+            titleData = titleData.cityState()
+        }
         var myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Georgia", size: 15.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
         return myTitle
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        newGame["sport"] = GlobalStorage.sports[row].lowercaseString
-        sportButton.setTitle(GlobalStorage.sports[row], forState: UIControlState.Normal)
+        if sportCities == "sports"{
+            newGame["sport"] = mySports[row].lowercaseString
+            sportButton.setTitle(mySports[row].capitalizedString, forState: UIControlState.Normal)
+        }
+        else{
+            newGame["city"] = myCities[row].lowercaseString
+            cityButton.setTitle(myCities[row].cityState(), forState: UIControlState.Normal)
+        }
         checkGameIsValid(newGame)
     }
     func textFieldDidEndEditing(textField: UITextField) {
@@ -135,9 +194,11 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
         if let sport = newGame["sport"] {
             if let title = newGame["title"]{
                 if let location = newGame["location"]{
-                    if let time = newGame["time"]{
-                        saveButton.enabled = true
-                        return true
+                    if let city = newGame["city"]{
+                        if let time = newGame["time"]{
+                            saveButton.enabled = true
+                            return true
+                        }
                     }
                 }
             }
@@ -146,17 +207,23 @@ class CreateGameVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
         return false
     }
     func createGame(){
-        Game.create(newGame, callback: {
-            (resp: JSON?) in
-            if let response = resp{
-                if response["status"].int! == 200{
-                    self.performSegueWithIdentifier("create_success", sender: self)
-                }
+        var newGameObj = Game(title: newGame["title"]!,
+                        location: newGame["location"]!,
+                        city: newGame["city"]!.toCity(),
+                        datetime: datePicker.date,
+                        sport: Sport(name: newGame["sport"]!),
+                        createdBy: GlobalStorage.currentUser.username
+            )
+        newGameObj.create(){ (response) in
+            if response["status"].int! == 200{
+                self.performSegueWithIdentifier("create_success", sender: self)
             }
-        })
+        }
     }
     
-    
+    func placeholder(){
+        // nothing to do
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

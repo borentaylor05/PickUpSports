@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Alamofire
 import SwiftyJSON
 import FontAwesome_swift
+
+typealias ApiResponse = (JSON) -> Void
 
 class Util {
     static func initTableView(controller: AnyObject?, tableView: UITableView) -> UITableView{
@@ -21,24 +22,30 @@ class Util {
         return tableView
     }
     
-    static func saveCurrentUser(view:UIViewController){
-        Alamofire.request(.GET, GlobalStorage.url+"/users/current\(GlobalStorage.currentAuth)").responseJSON{
-            (req, resp, json, error) in
-            let resp: JSON? = JSON(json!)
-            if let response = resp{
-                println(response)
-                GlobalStorage.currentUser = Person(username: response["user"]["username"].string!,
-                    id: response["user"]["id"].int!,
-                    email: response["user"]["email"].string!,
-                    token: response["user"]["authentication_token"].string!
-                )
-                view.performSegueWithIdentifier("login_successful", sender: view)
-            }
-        }
+    static func saveCurrentUser(){
+        let defaults = NSUserDefaults()
+        GlobalStorage.currentUser = Person(username: defaults.objectForKey("username") as! String!,
+            id: defaults.objectForKey("user_id") as! Int!,
+            email: defaults.objectForKey("email") as! String!,
+            token: defaults.objectForKey("token") as! String!
+        )
+        GlobalStorage.currentUser.setCities()
+        GlobalStorage.currentUser.setSports()
+    }
+    
+    static func saveCurrentUserNoCitySports(){
+        let defaults = NSUserDefaults()
+        GlobalStorage.currentUser = Person(username: defaults.objectForKey("username") as! String!,
+            id: defaults.objectForKey("user_id") as! Int!,
+            email: defaults.objectForKey("email") as! String!,
+            token: defaults.objectForKey("token") as! String!
+        )
     }
     
     static func formatUrl(resource:String) -> String{
-        return "\(GlobalStorage.url)\(resource)\(GlobalStorage.currentAuth)"
+        let defaults = NSUserDefaults()
+        let currentAuth = "?user_email="+GlobalStorage.currentUser.email+"&user_token="+GlobalStorage.currentUser.token
+        return "\(GlobalStorage.url)\(resource)\(currentAuth)"
     }
     
     static func isSmallDevice() -> Bool{
@@ -69,6 +76,14 @@ extension String{
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluateWithObject(self)
+    }
+    func cityState() -> String{
+        var parts = split(self) {$0 == ","}
+        return parts[0].capitalizedString+", "+parts[1].uppercaseString
+    }
+    func toCity() -> City{
+        var parts = split(self) {$0 == ","}
+        return City(name: parts[0], state: parts[1])
     }
 }
 
@@ -156,3 +171,18 @@ extension UIActivityIndicatorView{
         self.removeFromSuperview()
     }
 }
+
+extension NSUserDefaults{
+    func clear(){
+        let appDomain = NSBundle.mainBundle().bundleIdentifier!
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+    }
+}
+
+protocol UserSettings {
+    static func getAll(callback:ApiResponse)
+}
+
+
+
+

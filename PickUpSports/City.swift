@@ -8,11 +8,22 @@
 
 import Foundation
 
-class City {
+class City: UserSettings {
     var name: String!
     var state: String!
     init(name:String, state:String){
         self.name = name
         self.state = state
     }
+    
+    func toString() -> String{
+        return self.name+","+self.state
+    }
+    
+    static func getAll(callback:ApiResponse){
+        HTTP.get("/cities"){ (response) in
+            callback(response)
+        }
+    }
+    
 }

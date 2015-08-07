@@ -12,10 +12,20 @@ import FontAwesome_swift
 
 class SportTableCell: MKTableViewCell {
     
+    enum Status{
+        case Selected
+        case NotSelected
+    }
+    required init(coder aDecoder: NSCoder) {
+        self.status = Status.NotSelected
+        super.init(coder: aDecoder)
+    }
+    
+    var status: Status
+    
     @IBOutlet weak var subview: CardView!
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var plus: UILabel!
-    
     
     @IBOutlet weak var citySubview: CardView!
     @IBOutlet weak var cityPlus: UILabel!
@@ -30,15 +40,17 @@ class SportTableCell: MKTableViewCell {
         cellLabel.text = message
     }
     
-    func formatSport(cell: SportTableCell, text:String) -> SportTableCell{
-        
+    func formatCell(text:String, status:Status){
+        var cell = self
+        var currentIcon:UILabel!
+        if let cp = cell.cityPlus{
+            cell.plus = cell.cityPlus
+            cell.cellLabel = cell.cityLabel
+            cell.subview = citySubview
+        }
         cell.backgroundColor = UIColor.clearColor()
         cell.contentView.backgroundColor = UIColor.clearColor()
-        cell.rippleLayerColor = UIColor.greenColor()
-        
         cell.plus.font = UIFont.fontAwesomeOfSize(30)
-        cell.plus.text = String.fontAwesomeIconWithName(FontAwesome.Plus)
-        cell.plus.textColor = UIColor.whiteColor()
         cell.plus.alpha = 1.0
         
         cell.cellLabel.textColor = UIColor.whiteColor()
@@ -49,29 +61,18 @@ class SportTableCell: MKTableViewCell {
         cell.subview.frame.size.height = cell.frame.size.height - 10
         cell.subview.backgroundColor = UIColor(rgba: "#444444")
         cell.subview.layoutSubviews()
-        return cell
-    }
-    
-    func formatCity(cell: SportTableCell, text:String) -> SportTableCell{
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.contentView.backgroundColor = UIColor.clearColor()
-        cell.rippleLayerColor = UIColor.greenColor()
-        
-        cell.cityPlus.font = UIFont.fontAwesomeOfSize(30)
-        cell.cityPlus.text = String.fontAwesomeIconWithName(FontAwesome.Plus)
-        cell.cityPlus.textColor = UIColor.whiteColor()
-        cell.cityPlus.alpha = 1.0
-        
-        cell.cityLabel.textColor = UIColor.whiteColor()
-        cell.cityLabel.text = text
-        cell.cityLabel.alpha = 1.0
-        
-        cell.citySubview.alpha = 0.8
-        cell.citySubview.frame.size.height = cell.frame.size.height - 1
-        cell.citySubview.backgroundColor = UIColor(rgba: "#444444")
-        cell.citySubview.layoutSubviews()
-        return cell
+        switch status{
+        case .Selected:
+            cell.rippleLayerColor = UIColor.greenColor()
+            cell.plus.text = String.fontAwesomeIconWithName(FontAwesome.Check)
+            cell.plus.textColor = UIColor.greenColor()
+        case .NotSelected:
+            cell.rippleLayerColor = UIColor.whiteColor()
+            cell.plus.text = String.fontAwesomeIconWithName(FontAwesome.Plus)
+            cell.plus.textColor = UIColor.whiteColor()
+        }
+       
     }
     
 }

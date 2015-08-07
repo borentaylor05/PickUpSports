@@ -10,8 +10,9 @@ import UIKit
 
 class PlayerCell: UITableViewCell {
     
+    
     @IBOutlet weak var playerLabel: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

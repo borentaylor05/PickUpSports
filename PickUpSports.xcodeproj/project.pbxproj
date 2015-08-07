@@ -25,10 +25,11 @@
 		A1409DDB1B4B2B98008F6DB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */; };
 		A1409DDD1B4B2B98008F6DB8 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDC1B4B2B98008F6DB8 /* FirstViewController.swift */; };
 		A1409DDF1B4B2B98008F6DB8 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DDE1B4B2B98008F6DB8 /* SecondViewController.swift */; };
-		A1409DE21B4B2B98008F6DB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1409DE01B4B2B98008F6DB8 /* Main.storyboard */; };
 		A1409DE41B4B2B98008F6DB8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1409DE31B4B2B98008F6DB8 /* Images.xcassets */; };
 		A1409DE71B4B2B98008F6DB8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1409DE51B4B2B98008F6DB8 /* LaunchScreen.xib */; };
 		A1409DF31B4B2B98008F6DB8 /* PickUpSportsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1409DF21B4B2B98008F6DB8 /* PickUpSportsTests.swift */; };
+		A1623B891B696158003732B2 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1623B881B696158003732B2 /* HTTP.swift */; };
+		A1623B8B1B6BDA95003732B2 /* IconLabelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1623B8A1B6BDA95003732B2 /* IconLabelVC.swift */; };
 		A18FAEE11B62D917003FAC84 /* CreateGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FAEE01B62D917003FAC84 /* CreateGameVC.swift */; };
 		A18FAEE31B62D9B7003FAC84 /* CreateGameLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FAEE21B62D9B7003FAC84 /* CreateGameLabelView.swift */; };
 		A18FAEEC1B65269D003FAC84 /* InitializeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FAEEB1B65269D003FAC84 /* InitializeVC.swift */; };
@@ -44,6 +45,7 @@
 		A18FE50F1B4CC21300F64169 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE50E1B4CC21300F64169 /* City.swift */; };
 		A18FE5131B4CC51A00F64169 /* CityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5121B4CC51A00F64169 /* CityVC.swift */; };
 		A18FE5151B4CE2E800F64169 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18FE5141B4CE2E800F64169 /* Util.swift */; };
+		A1BC88531B66EBFE009C4E24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BC88521B66EBFE009C4E24 /* Main.storyboard */; };
 		A1DF600C1B600B6700E9073E /* ResponsiveTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DF600B1B600B6700E9073E /* ResponsiveTextFieldViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,19 +80,20 @@
 		A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1409DDC1B4B2B98008F6DB8 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		A1409DDE1B4B2B98008F6DB8 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		A1409DE11B4B2B98008F6DB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A1409DE31B4B2B98008F6DB8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1409DE61B4B2B98008F6DB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A1409DEC1B4B2B98008F6DB8 /* PickUpSportsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickUpSportsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1409DF11B4B2B98008F6DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1409DF21B4B2B98008F6DB8 /* PickUpSportsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpSportsTests.swift; sourceTree = "<group>"; };
+		A1623B881B696158003732B2 /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		A1623B8A1B6BDA95003732B2 /* IconLabelVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconLabelVC.swift; sourceTree = "<group>"; };
 		A18FAEE01B62D917003FAC84 /* CreateGameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameVC.swift; sourceTree = "<group>"; };
 		A18FAEE21B62D9B7003FAC84 /* CreateGameLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameLabelView.swift; sourceTree = "<group>"; };
 		A18FAEEB1B65269D003FAC84 /* InitializeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitializeVC.swift; sourceTree = "<group>"; };
 		A18FAEED1B6526AE003FAC84 /* CreateAccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		A18FAEEF1B6550DD003FAC84 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A18FE4F41B4B859900F64169 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		A18FE4F61B4C1CFF00F64169 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		A18FE4F61B4C1CFF00F64169 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A18FE4FE1B4C3F3400F64169 /* SportTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportTableCell.swift; sourceTree = "<group>"; };
 		A18FE5021B4C70CF00F64169 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A18FE5031B4C70CF00F64169 /* InputText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputText.swift; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 		A18FE50E1B4CC21300F64169 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		A18FE5121B4CC51A00F64169 /* CityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityVC.swift; sourceTree = "<group>"; };
 		A18FE5141B4CE2E800F64169 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		A1BC88521B66EBFE009C4E24 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A1DF600B1B600B6700E9073E /* ResponsiveTextFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponsiveTextFieldViewController.swift; sourceTree = "<group>"; };
 		CF5871BC5489C0E1F1195D0B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E07AA5FC27267C5AAA2DB2D8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -204,13 +208,15 @@
 				A18FE50B1B4CC0E200F64169 /* Libraries */,
 				A18FE50A1B4CC0B500F64169 /* CocoaClasses */,
 				A1409DDA1B4B2B98008F6DB8 /* AppDelegate.swift */,
+				A1BC88521B66EBFE009C4E24 /* Main.storyboard */,
 				A1409DDE1B4B2B98008F6DB8 /* SecondViewController.swift */,
-				A1409DE01B4B2B98008F6DB8 /* Main.storyboard */,
 				A1409DE31B4B2B98008F6DB8 /* Images.xcassets */,
 				A1409DE51B4B2B98008F6DB8 /* LaunchScreen.xib */,
 				A1409DD81B4B2B98008F6DB8 /* Supporting Files */,
 				A11676751B4DC1E8009DA904 /* GlobalStorage.swift */,
 				A18FE5141B4CE2E800F64169 /* Util.swift */,
+				A1623B881B696158003732B2 /* HTTP.swift */,
+				A1623B8A1B6BDA95003732B2 /* IconLabelVC.swift */,
 			);
 			path = PickUpSports;
 			sourceTree = "<group>";
@@ -368,7 +374,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1409DE21B4B2B98008F6DB8 /* Main.storyboard in Resources */,
+				A1BC88531B66EBFE009C4E24 /* Main.storyboard in Resources */,
 				A1409DE71B4B2B98008F6DB8 /* LaunchScreen.xib in Resources */,
 				A18FE4F71B4C1CFF00F64169 /* Podfile in Resources */,
 				A1409DE41B4B2B98008F6DB8 /* Images.xcassets in Resources */,
@@ -452,6 +458,8 @@
 				A18FAEE31B62D9B7003FAC84 /* CreateGameLabelView.swift in Sources */,
 				A1409DDB1B4B2B98008F6DB8 /* AppDelegate.swift in Sources */,
 				A116768C1B5047E6009DA904 /* Person.swift in Sources */,
+				A1623B891B696158003732B2 /* HTTP.swift in Sources */,
+				A1623B8B1B6BDA95003732B2 /* IconLabelVC.swift in Sources */,
 				A116768A1B504777009DA904 /* Comment.swift in Sources */,
 				A18FE4F51B4B859900F64169 /* CardView.swift in Sources */,
 				A11676721B4DC0B2009DA904 /* SportHeaderCell.swift in Sources */,
@@ -491,14 +499,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A1409DE01B4B2B98008F6DB8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A1409DE11B4B2B98008F6DB8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A1409DE51B4B2B98008F6DB8 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

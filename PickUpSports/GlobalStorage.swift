@@ -23,5 +23,5 @@ class GlobalStorage:NSObject {
     
     static var url = "http://localhost:3000/api/v1"
     static var currentAuth = "?user_email=me@example.com&user_token=uz73Hiuwfo1ADQaUsgu1"
-
+    
 }

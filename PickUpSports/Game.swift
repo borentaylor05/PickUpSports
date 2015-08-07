@@ -18,27 +18,59 @@ class Game {
     var sport: Sport!
     var players: [Person]?
     var playersNeeded: Int!
-    var createdBy: String!
-    var id: Int!
-    var joined: Bool
-    init(title: String, location: String, city: City, datetime: NSDate, sport: Sport, playersNeeded:Int, createdBy:String, id: Int, joined:Bool){
+    var createdBy: String?
+    var id: Int?
+    var joined: Bool?
+    init(title: String, location: String, city: City, datetime: NSDate, sport: Sport, createdBy:String, id: Int, joined:Bool){
         self.title = title
         self.location = location
         self.city = city
         self.datetime = datetime
         self.sport = sport
         self.createdBy = createdBy
-        self.playersNeeded = playersNeeded
         self.id = id
         self.joined = joined
     }
+    init(title: String, location: String, city: City, datetime: NSDate, sport: Sport, createdBy:String){
+        self.title = title
+        self.location = location
+        self.city = city
+        self.datetime = datetime
+        self.sport = sport
+        self.createdBy = createdBy
+    }
     
-    static func create(game:[String:String], callback:(JSON?) -> Void){
-        Alamofire.request(.POST, Util.formatUrl("/games"), parameters: game).responseJSON{
-            (req, resp, json, err) in
-            let resp: JSON? = JSON(json!)
-            callback(resp!)
+    func create(callback:ApiResponse){
+        HTTP.post("/games", params: self.toDictionaryParams()) { (response) in
+            callback(response)
         }
+    }
+    
+    func join(callback:ApiResponse){
+        HTTP.post("/games/\(self.id!)/join", params: nil){ (response) in
+            callback(response)
+        }
+    }
+    
+    func toDictionaryParams() -> [String:String]{
+        return ["title": self.title,
+                "location": self.location,
+                "city": self.city.toString(),
+                "time": self.datetime.toRailsStringDate(),
+                "sport": self.sport.name
+                ]
+    }
+    
+    static func jsonToGame(game:JSON) -> Game{
+        return Game(title: game["title"].string!,
+            location: game["location"].string!,
+            city: City(name: game["city"]["name"].string!, state: game["city"]["state"].string!),
+            datetime: game["time"].string!.rails_date(),
+            sport: Sport(name: game["sport"]["name"].string!),
+            createdBy: game["owner"].string!,
+            id: game["id"].int!,
+            joined: game["joined"].bool!
+        )
     }
 }
 

@@ -27,20 +27,20 @@ class GameCell: MKTableViewCell {
             gameImage.image = UIImage(named: "sports")
         }
         self.rippleLayerColor = GlobalStorage.successColor
-        gameImage.contentMode = .ScaleToFill
-        if !game.joined{
-            gameSubview.layer.borderColor = GlobalStorage.errorColor.CGColor
-        }
-        else{
+        gameImage.contentMode = UIViewContentMode.ScaleAspectFit
+        if (game.joined! == true){
             gameSubview.layer.borderColor = GlobalStorage.successColor.CGColor
         }
-        gameSubview.layer.borderWidth = 1
+        else{
+            gameSubview.layer.borderColor = GlobalStorage.errorColor.CGColor
+        }
+        gameSubview.layer.borderWidth = 2
         self.backgroundColor = UIColor.clearColor()
         titleLabel.text = game.title
         dateLabel.text = game.datetime.string()
-        locationLabel.text = "\(game.city.name) - Rec Center"
+        locationLabel.text = "\(game.location)"
         gameSubview.backgroundColor = UIColor.MKColor.Grey
-        
+        playersLabel.text = "Players: "+String(game.players!.count)
     }
     
     func getSportImage(sport:String) -> UIImage{

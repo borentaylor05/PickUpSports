@@ -7,18 +7,40 @@
 //
 
 import UIKit
+import MaterialKit
+import FontAwesome_swift
 
 class SecondViewController: UIViewController {
-
+    
+    @IBOutlet weak var changeSportsButton: MKButton!
+    @IBOutlet weak var changeCitiesButton: MKButton!
+    @IBOutlet weak var sportsIcon: UILabel!
+    @IBOutlet weak var citiesIcon: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Blah", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
-        // Do any additional setup after loading the view, typically from a nib.
+        sportsIcon.makeIconLabel(FontAwesome.Trophy)
+        citiesIcon.makeIconLabel(FontAwesome.Building)
+        self.navigationItem.title = "Change Settings"
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "logout"{
+            let defaults = NSUserDefaults()
+            defaults.clear()
+        }
+        else if segue.identifier == "edit_sports"{
+            let destination = segue.destinationViewController as! SportsTableViewController
+            destination.editingSports = true
+        }
+        else if segue.identifier == "edit_cities"{
+            let destination = segue.destinationViewController as! CityVC
+            destination.editingCities = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 

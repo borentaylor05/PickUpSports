@@ -8,45 +8,45 @@
 
 import UIKit
 import MaterialKit
-import Alamofire
 import SwiftyJSON
+import PusherSwift
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var games = [Game]()
+    let pusher = Pusher(key: "78115fd80004e8bf53c9")
+    
     var newGameTitle:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // stores user in GlobalStorage.currentUser
+        Util.saveCurrentUser()
         showNewGameModal()
         self.tabBarController?.navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addGameButtonClicked"), animated: true)
         self.tabBarController?.navigationItem.title = "Available Games"
         tableView = Util.initTableView(self, tableView: tableView)
+        let pusher = Pusher(key: "78115fd80004e8bf53c9", options: ["secret": "MY SECRET"])
+        pusher.connect()
+        let chan = pusher.subscribe("test-channel")
         
+        
+        chan.bind("test-event", callback: { (data: AnyObject?) -> Void in
+            println(data)
+            if let data = data as? Dictionary<String, AnyObject> {
+                if let testVal = data["test"] as? String {
+                    println(testVal)
+                }
+            }
+        })
     }
     override func viewWillAppear(animated: Bool) {
-        games = []
         var spinner = self.view.addSpinner()
         spinner.color = UIColor.whiteColor()
-        Alamofire.request(.GET, GlobalStorage.url+"/users/\(GlobalStorage.currentUser.id!)/games\(GlobalStorage.currentAuth)").responseJSON{
-            (req, resp, json, err) in
-            let resp: JSON? = JSON(json!)
-            if let response = resp{
-                for(key, game) in response["games"]{
-                    var g = self.jsonToGame(game)
-                    var players = [Person]()
-                    for(key, player) in game["players"]{
-                        players.append(Person(username: player["username"].string!, id: player["id"].int!, email: player["email"].string!))
-                    }
-                    g.players = players
-                    g.playersNeeded = g.playersNeeded - g.players!.count - 1
-                    self.games.append(g)
-                }
-                self.tableView.reloadData()
-                spinner.remove()
-            }
+        GlobalStorage.currentUser.setGames(){ (response) in            
+            self.tableView.reloadData()
+            spinner.remove()
         }
     }
     
@@ -55,15 +55,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return games.count
+        return GlobalStorage.currentUser.games.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("game_cell", forIndexPath: indexPath) as! GameCell
-       // let recognizer = UITapGestureRecognizer(target: self, action: Selector("gameCellTapped"))
-        let game = games[indexPath.row]
-       // recognizer.delegate = cell
-       // cell.addGestureRecognizer(recognizer)
+        let game = GlobalStorage.currentUser.games[indexPath.row]
         cell.formatGame(game)
         return cell
     }
@@ -71,7 +68,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "to_game"{
             let indexPath = self.tableView.indexPathForCell(sender as! UITableViewCell)
-            let game = games[indexPath!.row]
+            let game = GlobalStorage.currentUser.games[indexPath!.row]
             var destination = segue.destinationViewController as! GameVC
             destination.game = game
         }
@@ -91,19 +88,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             settings.bodyColor = .whiteColor()
             Modal(title: "Success!", body: message, status: .Info, settings: settings).show()
         }
-    }
-    
-    func jsonToGame(game:JSON) -> Game{
-        return Game(title: game["title"].string!,
-            location: game["location"].string!,
-            city: City(name: game["city"]["name"].string!, state: game["city"]["state"].string!),
-            datetime: game["time"].string!.rails_date(),
-            sport: Sport(name: game["sport"]["name"].string!),
-            playersNeeded: game["players_needed"].int!,
-            createdBy: game["owner"].string!,
-            id: game["id"].int!,
-            joined: game["joined"].bool!
-        )
     }
     
     func addGameButtonClicked(){
